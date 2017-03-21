@@ -6,7 +6,7 @@ import org.elasticsearch.indices.analysis.AnalysisModule;
 import org.elasticsearch.plugins.AnalysisPlugin;
 import org.elasticsearch.plugins.Plugin;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -16,8 +16,6 @@ public class HangulJamoPlugin extends Plugin implements AnalysisPlugin {
 
     @Override
     public Map<String, AnalysisModule.AnalysisProvider<TokenFilterFactory>> getTokenFilters() {
-        Map<String, AnalysisModule.AnalysisProvider<TokenFilterFactory>> extra = new HashMap<>();
-        extra.put("hangul_jamo", HangulJamoTokenFilterFactory::new);
-        return extra;
+        return Collections.singletonMap("hangul_jamo", HangulJamoTokenFilterFactory::new);
     }
 }
