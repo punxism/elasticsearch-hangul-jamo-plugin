@@ -1,0 +1,1 @@
+Elasticsearch Hangul Jamo Analyzer Plugin
