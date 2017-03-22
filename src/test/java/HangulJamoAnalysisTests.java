@@ -1,5 +1,6 @@
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.Index;
+import org.elasticsearch.index.analysis.HangulChosungFilterFactory;
 import org.elasticsearch.index.analysis.HangulJamoTokenFilterFactory;
 import org.elasticsearch.index.analysis.TokenFilterFactory;
 import org.elasticsearch.plugin.analysis.hangul.HangulJamoPlugin;
@@ -12,12 +13,20 @@ import java.io.IOException;
  */
 public class HangulJamoAnalysisTests extends ESTestCase {
 
-    public void testDefaultHangulJamoAnalysis() throws IOException {
+    public void testHangulJamoTokenFilter() throws IOException {
         Settings settings = Settings.builder().build();
         TestAnalysis analysis = createTestAnalysis(new Index("test", "_na"), settings, new HangulJamoPlugin());
 
         TokenFilterFactory filterFactory = analysis.tokenFilter.get("hangul_jamo");
         assertTrue(filterFactory instanceof HangulJamoTokenFilterFactory);
+    }
+
+    public void testHangulChosungTokenFilter() throws IOException {
+        Settings settings = Settings.builder().build();
+        TestAnalysis analysis = createTestAnalysis(new Index("test", "_na"), settings, new HangulJamoPlugin());
+
+        TokenFilterFactory filterFactory = analysis.tokenFilter.get("hangul_chosung");
+        assertTrue(filterFactory instanceof HangulChosungFilterFactory);
     }
 
 }
