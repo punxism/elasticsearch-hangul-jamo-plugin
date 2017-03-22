@@ -64,15 +64,15 @@
                 <version>3.0.0</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/main/assembly/zip.xml</descriptor>
+                        <descriptor>src/main/resources/zip.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- append to the packaging phase. -->
+                        <id>zip-with-dependencies</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>single</goal> <!-- goals == mojos -->
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
