@@ -7,7 +7,7 @@
     <groupId>org.elasticsearch.plugin</groupId>
     <artifactId>hangul-jamo-analyzer</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <finalName>elasticsearch-${project.name}-${elasticsearch.version}</finalName>
     <packaging>jar</packaging>
 
     <properties>
@@ -60,11 +60,28 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/main/resources/zip.xml</descriptor>
+                        <descriptor>release.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>

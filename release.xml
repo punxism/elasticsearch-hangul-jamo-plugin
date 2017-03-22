@@ -11,8 +11,19 @@
         <dependencySet>
             <outputDirectory>/</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
-            <unpack>true</unpack>
+            <unpack>false</unpack>
             <scope>runtime</scope>
+            <excludes>
+                <exclude>org.elasticsearch:elasticsearch</exclude>
+                <exclude>junit:junit</exclude>
+            </excludes>
         </dependencySet>
     </dependencySets>
+    <fileSet>
+        <directory>${project.build.directory}/</directory>
+        <outputDirectory>/</outputDirectory>
+        <includes>
+            <include>elasticsearch-${project.name}</include>
+        </includes>
+    </fileSet>
 </assembly>
