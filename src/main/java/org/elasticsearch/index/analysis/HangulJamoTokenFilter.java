@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by changoh on 17. 3. 20.
  */
-public class HangulJamoTokenFilter extends TokenFilter {
+public final class HangulJamoTokenFilter extends TokenFilter {
     private final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     IJamoParser parser;
 
