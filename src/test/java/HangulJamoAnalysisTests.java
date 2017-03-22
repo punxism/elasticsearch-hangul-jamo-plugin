@@ -12,7 +12,6 @@ import org.elasticsearch.test.ESTestCase;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.Arrays;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
@@ -31,10 +30,7 @@ public class HangulJamoAnalysisTests extends ESTestCase {
         assertTrue(tokenFilter instanceof HangulJamoTokenFilterFactory);
 
         String source = "사랑하는 사람들.,!";
-        String[][] expected = new String[][]{
-                {"ㅅ","ㅏ","ㄹ","ㅏ","ㅇ","ㅎ","ㄴ","ㅡ","ㄴ"},
-                {"ㅅ","ㅏ","ㄹ","ㅁ","ㄷ","ㅡ","ㄹ"}
-        };
+        String[] expected = new String[]{"ㅅㅏㄹㅏㅇㅎㅏㄴㅡㄴ", "ㅅㅏㄹㅁㄷㅡㄹ"};
         Tokenizer tokenizer = new StandardTokenizer();
         tokenizer.setReader(new StringReader(source));
         assertSimpleTSOutput(tokenFilter.create(tokenizer), expected);
@@ -47,24 +43,21 @@ public class HangulJamoAnalysisTests extends ESTestCase {
         TokenFilterFactory tokenFilter = analysis.tokenFilter.get("hangul_chosung");
         assertTrue(tokenFilter instanceof HangulChosungFilterFactory);
         String source = "사랑하는 사람들.,!";
-        String[][] expected = new String[][]{
-                {"ㅅ","ㄹ","ㅎ","ㄴ"},
-                {"ㅅ","ㄹ","ㄷ"}
-        };
+        String[] expected = new String[]{"ㅅㄹㅎㄴ", "ㅅㄹㄷ"};
         Tokenizer tokenizer = new StandardTokenizer();
         tokenizer.setReader(new StringReader(source));
         assertSimpleTSOutput(tokenFilter.create(tokenizer), expected);
     }
 
     public static void assertSimpleTSOutput(TokenStream stream,
-                                            String[][] expected) throws IOException {
+                                            String[] expected) throws IOException {
         stream.reset();
         CharTermAttribute termAttr = stream.getAttribute(CharTermAttribute.class);
         assertThat(termAttr, notNullValue());
         int i = 0;
         while (stream.incrementToken()) {
             assertThat(expected.length, greaterThan(i));
-            assertEquals( "expected different term at index " + i, Arrays.toString(expected[i]), termAttr.toString());
+            assertEquals( "expected different term at index " + i, expected[i], termAttr.toString());
             i++;
         }
         assertThat("not all tokens produced", i, equalTo(expected.length));
