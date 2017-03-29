@@ -7,7 +7,7 @@
     <groupId>org.elasticsearch.plugin</groupId>
     <artifactId>hangul-jamo-analyzer</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <finalName>elasticsearch-${project.name}-${elasticsearch.version}</finalName>
+
     <packaging>jar</packaging>
 
     <properties>
@@ -20,23 +20,18 @@
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
             <version>${elasticsearch.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-core</artifactId>
             <version>${lucene.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.8.1</version>
         </dependency>
 
         <dependency>
@@ -49,6 +44,16 @@
     </dependencies>
 
     <build>
+        <finalName>elasticsearch-${project.name}-${elasticsearch.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -80,6 +85,8 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <outputDirectory>${project.build.directory}/releases</outputDirectory>
                     <descriptors>
                         <descriptor>release.xml</descriptor>
                     </descriptors>

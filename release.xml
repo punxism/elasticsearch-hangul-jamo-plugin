@@ -7,23 +7,18 @@
         <format>zip</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
+    <files>
+        <file>
+            <source>${project.basedir}/src/main/resources/plugin-descriptor.properties</source>
+            <outputDirectory>elasticsearch</outputDirectory>
+            <filtered>true</filtered>
+        </file>
+    </files>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>elasticsearch</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
-            <unpack>false</unpack>
-            <scope>runtime</scope>
-            <excludes>
-                <exclude>org.elasticsearch:elasticsearch</exclude>
-                <exclude>junit:junit</exclude>
-            </excludes>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
         </dependencySet>
     </dependencySets>
-    <fileSet>
-        <directory>${project.build.directory}/</directory>
-        <outputDirectory>/</outputDirectory>
-        <includes>
-            <include>elasticsearch-${project.name}</include>
-        </includes>
-    </fileSet>
 </assembly>
