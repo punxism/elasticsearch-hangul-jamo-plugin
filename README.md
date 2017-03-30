@@ -1,5 +1,6 @@
 # Elasticsearch Hangul Jamo & Chosung Analyzer Plugin
 * Hangul(Korean) Jamo, Chosung filter for an Elasticsearch
+* [Korean version of README.md](README_KR.md) 
 
 ## Supported version
 Below elasticsearch versions are tested
